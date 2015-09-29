@@ -1,0 +1,45 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+    $("#btn1").click(function(){
+
+            $.post("http://localhost/phonegap/www/server/loginU.php", { 
+            duser: $("#user").val(),
+            dpass: $("#pass").val()},  
+                    function(result){
+                    // alert(result);
+                    $("#div1").html(result);
+
+                    if (result == 'admin') {
+                        alert("ยินดีต้อนรับ");
+                        window.location="http://localhost/phonegap/www/menu.html";
+                    }else{
+                         alert("ยินดีต้อนรับ");
+                        window.location="http://localhost/phonegap/www/menuU.html";
+                    };
+                
+            
+                    }
+            );
+              // window.location="http://172.18.2.86/phonegap/www/server/login.php";
+              // window.location="server/login.php";
+
+
+     
+        });
+
+    });
+</script>
+</head>
+<body>
+<div align="center">
+<h1>เข้ารหัสส่วนตัว</h1>
+Username <input type="taxt" id="user" style="width:50%;"></br>
+Password  <input type="password" id="pass" style="width:50%;"></br>
+<input type="button" id="btn1" value="Load">
+</div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" >
+   function checkdata(aa) {   
+         // $.getJSON('adduser.php',function(json){   
+         //          if (json.length > 0) {  
+         //             alert(json);
+         //          }else
+         //             {
+         //             alert('sad');
+         //             }
+         // });
+      $.post("http://localhost/phonegap/www/adduser.php", { 
+               data1:aa}
+               ,  function(result){
+                       if(result == 0){
+                           "<input type="taxt" id="user" style="width:50%;">";
+                       }
+                   }
+            );
+   }
+</script>
+<body onload="checkdata(5)">
+</body>
+</html>
+
+

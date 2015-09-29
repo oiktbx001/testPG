@@ -1,0 +1,119 @@
+<html>
+<head>
+
+<script type="application/javascript" src="js/jquery-1.11.0.js"></script>
+<style type="text/css">
+	div{
+		padding:8px;
+	}
+</style>
+
+</head>
+
+	<body>
+		<form >
+			<h1>jQuery add / remove textbox example</h1>
+
+			<script type="text/javascript">
+
+			$(document).ready(function(){
+
+			    var counter = 2;
+					
+			    $("#addButton").click(function () {
+							
+					if(counter>10){
+				            alert("Only 10 textboxes allow");
+				            return false;
+					}   
+						
+					var newTextBoxDiv = $(document.createElement('div'))
+					     .attr("id", 'TextBoxDiv' + counter);
+				                
+					newTextBoxDiv.after().html('<label>Textbox #'+ counter + ' : </label>' +
+			      '<input type="text" name="textbox[]' + counter +'" id="textbox' + counter + '" value="" >'+
+			      '<input type="text" name="textb[]' + counter +  '" id="textb' + counter + '" value="" > '+
+			      '<input type="radio"  name="status[]' + counter +  '" value="user">user'+
+				'<input type="radio"  name="status[]' + counter +  '" value="admin">admin'
+			      );
+				    
+					newTextBoxDiv.appendTo("#TextBoxesGroup");
+
+								
+					counter++;
+			     });
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////
+			     $("#removeButton").click(function () {
+					if(counter==1){
+				          alert("No more textbox to remove");
+				          return false;
+				       }   
+				        
+					counter--;
+							
+				        $("#TextBoxDiv" + counter).remove();
+						
+			     });
+		///////////////////////////////////////////////////////////////////////////////////////////////////////////
+			     $("#getButtonValue").click(function () {
+					
+					var msg = '';
+					for(i=1; i<counter; i++){
+					
+				   	 		 msg += "\n Textbox #" + i + " : " + $('#textbox' + i).val() + "   Textbox1 #" + i + " : " + $('#textb' + i).val()+ "   radio #" + i + " : " + $("input[name=status"+i+"]:checked").val();
+
+					}
+				    	  alert(msg);
+
+			     });
+
+			    $("#postval").click(function () {
+						
+		          //   	$.post("http://localhost/phonegap/www/server/adduser.php", { 
+			           
+					   	 
+					   	 		// data : $('form1').serialize();
+							
+			         //    },  
+			         //            function(result){
+			         //            // alert(result);
+			         //                // $("#div1").html(result);
+		          //                  alert(result);  
+		          //           	}
+			          //       );
+				    var txt=$('form').serialize();  // ใช้ serialize() รวมเอา ค่าทั้งหมดที่อยู่ใน form     
+	                $.ajax({
+		                  type: 'POST',
+		                  url: "http://localhost/phonegap/www/adduser.php",
+		                  data: txt,
+		                  success: function(data){
+		                     $('#result').html( data );                   
+		                  }
+	                 
+	                });               
+
+
+			    });
+
+
+			});
+		</script>
+		</head><body>
+
+		<div id='TextBoxesGroup'>
+			<div id="TextBoxDiv1">
+				<label>Textbox #1 : </label>
+				<input type='textbox' name = "textbox[1]" id='textbox1' > 
+				<input type='textbox' name = "textb[1]" id='textb1' >
+				<input type="radio"  name="status[1]" value="user">user
+				<input type="radio"  name="status[1]" value="admin">admin
+			</div>
+		</div>
+		<input type='button' value='Add Button' id='addButton'>
+		<input type='button' value='Remove Button' id='removeButton'>
+		<input type='button' value='Get TextBox Value' id='getButtonValue'>
+		<input type='button' value='postajax' id='postval'>
+		<div id ="result"></div>
+	</form>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />       
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+     
+       <!--  <input type="text" id="device0">
+        <input type="text" id="device1"> -->
+    <script type="application/javascript" src="js/jquery-1.11.0.js"></script>
+    <script type="text/javascript">
+
+            $(document).ready(function(){       
+                   $.getJSON('http://localhost/phonegap/www/server/showdv.php',function(json){
+                
+                        var  tr;
+                            for (var i = 0; i < json.length; i++) {
+                                tr = $('<tr/>');
+                                tr.append('<td ><input type="text" id="device'+i+'" value =' + json[i].Name +" ></td>");
+                                $('table').append(tr);
+                             }   
+                    });//json
+
+            });
+           
+            $(document).ready(function(){
+                $("#btn1").click(function(){
+                    $.post("http://localhost/phonegap/www/server/updatedv.php", { 
+                        
+                         data0:$("#device0").val(),
+                         data1:$("#device1").val(),
+                         data2:$("#device2").val(),
+                         data3:$("#device3").val(),
+                         data4:$("#device4").val(),
+                         data5:$("#device5").val(),
+                         data6:$("#device6").val(),
+                         data7:$("#device7").val(),
+                         data8:$("#device8").val(),
+                         data9:$("#device9").val()}
+                        ,  function(result){
+                             alert(result);
+
+                            }
+                    );
+                          
+                });
+            });
+             
+         </script>
+    </head>
+		
+    <body>
+		<h1>ตั้งชื่อและแก้ไขอุปกรณ์</h1>
+
+        
+		<table  border="1" align="Center">
+            <th>ชื่ออุปกรณ์</th>
+             
+        </table> </br>
+		<div align="center"><input type="button" id="btn1" value="บันทึก"></div>
+
+        <div id="div1"></div>
+		
+
+    </body>
+</html>
